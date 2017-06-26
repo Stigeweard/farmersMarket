@@ -1,10 +1,10 @@
 # set language
 language: python
-# required for using docker
-sudo: required
-services:
-  - docker
+# # required for using docker
+# sudo: required
+# services:
+#   - docker
 # install command
 install: pip install -r requirements.txt
 # run test command
-script: py.test -vv --capture=sys --run-without-docker
+script: py.test -vv
