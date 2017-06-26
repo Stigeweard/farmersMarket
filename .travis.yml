@@ -7,4 +7,4 @@ services:
 # install command
 install: pip install -r requirements.txt
 # run test command
-script: python -m pytest
+script: py.test -vv --capture=sys --run-without-docker
