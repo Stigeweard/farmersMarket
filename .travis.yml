@@ -1,6 +1,6 @@
 # set language
 language: python
-# # required for using docker
+# # required for building docker images and running them
 # sudo: required
 # services:
 #   - docker
