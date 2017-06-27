@@ -74,10 +74,10 @@ def print_register(basket, promo, final_sum):
 # Total price expected: $20.34
 # NOTE: Here is where you can change the contents of the basket
 _basket = []
+_basket.append('AP1')
+_basket.append('AP1')
 _basket.append('CH1')
 _basket.append('AP1')
-_basket.append('CF1')
-_basket.append('MK1')
 _promo = []
 
 for item in _basket:
