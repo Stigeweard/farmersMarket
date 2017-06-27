@@ -4,7 +4,7 @@
 # instead of the class approach, I wanted to try isolating more logic in functions and add a promotion
 # that corresponds to every item, NA being no special price that isn't printed. This way the output will look
 # more like the example and the logic should be easier to follow.
-# Downside is now there is no 'generic' way of defining new functions - however in the last version it constrained
+# Downside is now there is no 'generic' way of defining new promotions - however in the last version it constrained
 # what a promotion could offer (i.e: no umbrella discount or percentage discount on all items)
 
 _prices = {'CH1': 3.11, 'AP1': 6.00, 'CF1': 11.23, 'MK1': 4.75, 'OM1': 3.69}
@@ -40,7 +40,7 @@ def check_bogo(basket, promos):
 # checks for milk promo if chai has been bought, only returns CHMK if it isn't in promo count (limit 1)
 def check_chmk(basket, promos):
     code_count = get_code_count(basket, _prices.keys())
-    promo_count = get_code_count(basket, _promotions.keys())
+    promo_count = get_code_count(promos, _promotions.keys())
     if code_count['CH1'] > 0 and promo_count['CHMK'] == 0:
         return 'CHMK'
     else:
@@ -58,23 +58,26 @@ def calculate_final_sum(basket, promos):
 # neat output string formatting to correct decimal places, using idx as the index corresponding to item position
 # so that the applicable promo will print out below the item it applies to
 def print_register(basket, promo, final_sum):
-    print("{l: <10}{r: >25}".format(l="Item", r="Price"))
-    print("{l: <10}{r: >25}".format(l="----", r="-----"))
+    print('{l: <10}{r: >25}'.format(l='Item', r='Price'))
+    print('{l: <10}{r: >25}'.format(l='----', r='-----'))
     for idx, item in enumerate(basket):
         # print item and price
-        print("{l: <10}{r: >25.2f}".format(l=item, r=_prices[item]))
+        print('{l: <10}{r: >25.2f}'.format(l=item, r=_prices[item]))
         if promo[idx] is not 'NA': # don't bother to print an NA promotion
             # print applicable promotion
-            print("{l: >15}{r: >20.2f}".format(l=promo[idx], r=_promotions[promo[idx]]))
+            print('{l: >15}{r: >20.2f}'.format(l=promo[idx], r=_promotions[promo[idx]]))
     print('{:-^35}'.format('-'))
-    print("{r: >35.2f}".format(r=final_sum))
+    print('{r: >35.2f}'.format(r=final_sum))
 
 # initialize basket and promo as lists so that order is retained and index can be used in function above
+# Basket: CH1, AP1, CF1, MK1
+# Total price expected: $20.34
+# NOTE: Here is where you can change the contents of the basket
 _basket = []
-_basket.append('AP1')
-_basket.append('AP1')
 _basket.append('CH1')
 _basket.append('AP1')
+_basket.append('CF1')
+_basket.append('MK1')
 _promo = []
 
 for item in _basket:
