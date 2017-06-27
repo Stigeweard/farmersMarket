@@ -69,24 +69,21 @@ def print_register(basket, promo, final_sum):
     print('{:-^35}'.format('-'))
     print('{r: >35.2f}'.format(r=final_sum))
 
-# initialize basket and promo as lists so that order is retained and index can be used in function above
-# Basket: CH1, AP1, CF1, MK1
-# Total price expected: $20.34
-# NOTE: Here is where you can change the contents of the basket
-_basket = []
-_basket.append('AP1')
-_basket.append('AP1')
-_basket.append('CH1')
-_basket.append('AP1')
-_promo = []
+def build_promo_list(basket):
+    promo = []
+    for item in basket:
+        if item is 'AP1':
+            promo.append(check_appl(basket))
+        elif item is 'CF1':
+            promo.append(check_bogo(basket, promo))
+        elif item is 'MK1':
+            promo.append(check_chmk(basket, promo))
+        else:
+            promo.append('NA')
+    return promo
 
-for item in _basket:
-    if item is 'AP1':
-        _promo.append(check_appl(_basket))
-    elif item is 'CF1':
-        _promo.append(check_bogo(_basket, _promo))
-    elif item is 'MK1':
-        _promo.append(check_chmk(_basket, _promo))
-    else:
-        _promo.append('NA')
+# initialize basket and promo as lists so that order is retained and index can be used in function above
+# NOTE: Here is where you can change the contents of the basket
+_basket = ['AP1', 'AP1', 'CH1', 'AP1']
+_promo = build_promo_list(_basket)
 print_register(_basket, _promo, calculate_final_sum(_basket, _promo))
